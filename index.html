@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="./static/style.css"> -->
+  <style>
+    /* style sheet for demo site */
+
+    html {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+        height: 100%;
+        width: 100%;
+    }
+
+    .master {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+    }
+
+    .title {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      min-height: 100px;
+      border: 1px solid black;
+      border-radius:8px;
+    }
+
+    .content{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      padding: 10px;
+      width: 100%;
+      min-height: 100px;
+    }
+
+    .articles{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      min-height: 100px;
+      min-width: 100px;
+    }
+    .history{
+      height: 100%;
+      min-height: 100px;
+      min-width: 100px;
+    }
+
+    .news{
+      margin:10px;
+    }
+
+  </style>
+  <script type="text/javascript" >
+    $(document).ready(function(){
+      $.get( "./getArticles", function( data ) {
+          console.log(data);
+          });
+      $("#trig").submit(function(e){
+        e.preventDefault();
+        $.get( "./getArticles", function( data ){
+            $("#newsboxes").empty();
+            for(i=0;i<data.length;i++){
+              console.log();
+              console.log(data[i]["author"]);
+              console.log(data[i]["date"]);
+              console.log(data[i]["publication"]);
+              console.log(data[i]["color"]);
+          $("#newsboxes").append(" <div class='card news' style='width: 22rem;'><div class=\"card-body\"><h5 class=\"card-title\">"+data[i]["title"]+"</h5> <h6 class=\"card-subtitle mb-2 text-muted\">"+data[i]["publication"]+"</h6> <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p> <a href=\"#\" class=\"card-link\">"+data[i]["date"]+"</a> <a href=\"#\" class=\"card-link\">"+data[i]["author"]+"</a> </div><button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"history(this);\">Read</button> </div> ");
+            }
+            });
+      });
+    });
+
+    function history(a){
+      b = a.parentNode;
+      console.log(b)
+    }
+  </script>
+  <title>Client app</title>
+</head>
+
+<body>
+  <div style="height:inherit;">
+    <div class="master">
+      <div class="title">
+            <form id="trig" class="form-inline" style="diplay:flex;flex-direction:row;justify-content:flex-end;">
+              <div style="margin:10px;" class="form-group mb-2">
+              <input  type="number" class="form-control-plaintext" id="userid" value="420">
+              </div>
+              <button style="margin:10px;"  class="btn btn-primary">Get Recommendations</button>
+            </form>
+      </div>
+      <div class="content">
+        <div class="articles" id="newsboxes">
+
+          <div class="card news" style="width: 30rem;">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="history">
+          <h4>Read History</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+</html>

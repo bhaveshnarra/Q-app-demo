@@ -1,0 +1,46 @@
+/* style sheet for demo site */
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.master {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.title {
+  width: 100%;
+  min-height: 100px;
+}
+
+.content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
+  width: 100%;
+  min-height: 100px;
+}
+
+.articles{
+  height: 100%;
+  min-height: 100px;
+  min-width: 100px;
+}
+.history{
+  height: 100%;
+  min-height: 100px;
+  min-width: 100px;
+}
