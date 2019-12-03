@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var DATA = [];
+var USERS = [];
 fs.createReadStream('articles1.csv')
   .pipe(csv())
   .on('data', (row) => {
@@ -14,6 +15,18 @@ fs.createReadStream('articles1.csv')
     // var items=getRandomArticles();
     // console.log(items);
   });
+function generateUsers(){
+    for(i=0;i<5;i++){
+      var obj = {
+        1:0.2,
+        2:0.2,
+        3:0.2,
+        4:0.2,
+        5:0.2
+      };
+      USERS.push(obj);
+    }
+}
 
 function getRandomArticles(){
   var items = [];
@@ -31,6 +44,7 @@ function getRandomArticles(){
 
 app.use(express.static('static'))
 // viewed at http://localhost:8080
+generateUsers();
 app.get('/', function(req, res) {
 
     res.sendFile(path.join(__dirname + '/index.html'));
@@ -39,5 +53,9 @@ app.get('/', function(req, res) {
 app.get('/getArticles', function(req, res) {
     var items = getRandomArticles();
     res.json(items);
+});
+
+app.get('/getUsers', function(req, res) {
+    res.json(USERS);
 });
 app.listen(8080);
