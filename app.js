@@ -42,6 +42,18 @@ function getRandomArticles(){
   return items;
 }
 
+function getcolor(id){
+  var rand = Math.random();
+  var idx = 1;
+  var sum = 0;
+  for(i=0;i<5;i++){
+    sum += USERS[id][(i+1).toString()];
+    if(rand < sum){
+      return i;
+    }
+  }
+}
+
 app.use(express.static('static'))
 // viewed at http://localhost:8080
 generateUsers();
@@ -57,5 +69,8 @@ app.get('/getArticles', function(req, res) {
 
 app.get('/getUsers', function(req, res) {
     res.json(USERS);
+});
+app.get('/getColor', function(req, res) {
+    res.json(parseInt(req.query));
 });
 app.listen(8080);
