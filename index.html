@@ -75,10 +75,6 @@
 
     $(document).ready(function(){
       var noobs = [];
-      $.get( "./getUsers", function( data ) {
-        console.log(data);
-        users = data;
-      });
 
       $("#trig").submit(function(e){
         e.preventDefault();
@@ -95,28 +91,9 @@
       });
     });
 
-    function agent(id,color){
-      users[id][color.toString()] += 0.1;
-      var sum = users[id]["1"] +users[id]["2"] + users[id]["3"] + users[id]["4"] + users[id]["5"];
-      users[id]["1"] /= sum;
-      users[id]["2"] /= sum;
-      users[id]["3"] /= sum;
-      users[id]["4"] /= sum;
-      users[id]["5"] /= sum;
-      console.log(users[id])
-    }
 
-    function getcolor(id){
-      var rand = Math.random();
-      var idx = 1;
-      var sum = 0;
-      for(i=0;i<5;i++){
-        sum += users[id][(i+1).toString()];
-        if(rand < sum){
-          return i;
-        }
-      }
-    }
+
+
     function history(a){
       c = a.parentNode.childNodes[0];
       console.log(c.childNodes);
@@ -126,7 +103,7 @@
       console.log(c.childNodes[8].textContent);
       console.log(c.childNodes[10].textContent);
       var color = colors[c.childNodes[10].textContent];
-      agent(document.getElementById("userid").value,c.childNodes[10].textContent)
+      $.post( "./updateProbs", { 'color':c.childNodes[10].textContent,'id':document.getElementById("userid").value} );
       $("#readHistory").append(" <div class='card news' style='width: 16rem;'><div class=\"card-body\"  style=\"background-color:"+color+"\"><h5 class=\"card-title\">"+c.childNodes[0].textContent+"</h5> <h6 class=\"card-subtitle mb-2 text-muted\">"+c.childNodes[2].textContent+"</h6> <p class=\"card-text\"> "+document.getElementById("userid").value +"</p> <a href=\"#\" class=\"card-link\">"+c.childNodes[6].textContent+"</a> <a href=\"#\" class=\"card-link\">"+c.childNodes[8].textContent+"</a> </div> ");
     }
   </script>
